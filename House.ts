@@ -1,5 +1,6 @@
 import { Floor } from "./Floor";
-export class House {
+import { IHouse } from "./interfaces/house.interface";
+export class House implements IHouse {
     floors = {}
 
     constructor({ floorCount }) {
@@ -9,4 +10,6 @@ export class House {
             this.floors[floor.getNumber()] = floor
         }
     }
+
+    get
 }

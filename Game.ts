@@ -1,6 +1,8 @@
 import { House } from "./House";
+import { IGame } from "./interfaces/game.inerface";
+import { Person } from "./Person";
 
-export class Game {
+export class Game implements IGame {
     house: House
 
     constructor() {
@@ -8,8 +10,10 @@ export class Game {
     }
     
     #init() {
+        console.log('init start');
         this.house = new House({floorCount: 10})
-        console.log('init');
+
+        console.log('init finish');
 
     }
 }
