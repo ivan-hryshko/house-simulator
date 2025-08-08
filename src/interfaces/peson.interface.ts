@@ -6,7 +6,9 @@ export interface IPerson {
     target: PesronTarget
     location: PersonLocation
     action(): void
-    move(locatio: PersonLocation): void
+    move(location: PersonLocation): void
+    nextLcoation(): PersonLocation
+    reachTarget(): void
 }
 
 export enum PesronTarget {
@@ -14,9 +16,17 @@ export enum PesronTarget {
     job = 'job'
 }
 export enum PersonLocation {
-    flat = 'flat',
-    near_flat = 'near_flat',
+    home = 'home',
     elevator = 'elevator',
-    evevator_bottom = 'evevator_bottom',
+    elevator_bottom = 'elevator_bottom',
+    elevator_up = 'elevator_up',
     job = 'job'
 }
+export const PersonLocationOrder = [
+    PersonLocation.job,
+    PersonLocation.elevator_bottom,
+    PersonLocation.elevator,
+    PersonLocation.elevator_up,
+    PersonLocation.home
+]
+

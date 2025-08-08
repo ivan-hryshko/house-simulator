@@ -1,5 +1,5 @@
 import { Flat } from "./Flat"
-import { IPerson, PersonLocation, PesronTarget } from "../interfaces/peson.interface"
+import { IPerson, PersonLocation, PersonLocationOrder, PesronTarget } from "../interfaces/peson.interface"
 
 export class Person implements IPerson {
     id: number
@@ -15,10 +15,36 @@ export class Person implements IPerson {
     }
 
     action(): void {
+        const wantEnterElevator = this.location === PersonLocation.elevator_bottom && this.target === PesronTarget.home
+            || this.location === PersonLocation.elevator_up && this.target === PesronTarget.job
+        if (wantEnterElevator) {
+
+        } else {
+            const nextLocation = this.getNextLcoation()
+
+        }
+
+  
+    }
+
+    getNextLcoation() {
+        const index = PersonLocationOrder.findIndex(order => order === this.location)
+        if (index !== -1) {
+            if (this.target === PesronTarget.home) {
+                return PersonLocationOrder[index + 1]
+            } else if(this.target === PesronTarget.job) {
+                return PersonLocationOrder[index -1]
+            }
+        } else {
+            throw Error('Can\'t find index PersonLocationOrder') 
+        }
+    }
+
+    move(location: PersonLocation): void {
         
     }
 
-    move(locatio: PersonLocation): void {
+    reachTarget(): void {
         
     }
 }

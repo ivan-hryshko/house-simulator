@@ -5,7 +5,7 @@ export interface IHouse {
     floors: {
         [key: number]: IFloor
     };
-    evevator: IEvevator
+    elevator: Ielevator
     action(): void
     getFlats(): IFlat[]
 }
@@ -27,7 +27,7 @@ export interface IFlat {
     getFloor(): IFloor
 }
 
-export interface IEvevator {
+export interface Ielevator {
     door: IDoor
     capasity: number
     location: IFloor

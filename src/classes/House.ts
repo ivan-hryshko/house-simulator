@@ -4,11 +4,11 @@ import { Floor } from "./Floor";
 import { IHouse } from "../interfaces/house.interface";
 export class House implements IHouse {
     floors = {}
-    evevator: Elevator;
+    elevator: Elevator;
     number: number;
 
     constructor({ floorCount, number }) {
-        this.evevator = new Elevator()
+        this.elevator = new Elevator()
         this.number
 
         for (let i = 0; i < floorCount; i++) {
@@ -28,6 +28,6 @@ export class House implements IHouse {
     }
 
     action(): void {
-        this.evevator.action()
+        this.elevator.action()
     }
 }
