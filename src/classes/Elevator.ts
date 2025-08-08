@@ -1,11 +1,12 @@
 import { Door } from "./Door";
 import { Floor } from "./Floor";
-import { IDoor, IEvevator } from "../interfaces/house.interface";
+import { IDoor, IEvevator, IFloor } from "../interfaces/house.interface";
 
 export class Elevator implements IEvevator {
     door: Door;
     capasity: number
     location: Floor;
+    targets: IFloor[] = [];
     
     constructor(capasity = 2) {
         this.capasity = capasity 
@@ -17,6 +18,10 @@ export class Elevator implements IEvevator {
     }
 
     move(locatio: Floor): void {
+        
+    }
+
+    setTarget(target: IFloor): void {
         
     }
 }

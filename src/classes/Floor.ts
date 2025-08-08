@@ -8,7 +8,7 @@ export class Floor implements IFloor {
         this.number = number
 
         for (let i = 0; i < flatsCount; i++) {
-            const flat = new Flat(i)
+            const flat = new Flat(i, this)
             console.log('flat.getNumber() :>> ', flat.getNumber());
             this.flats[flat.getNumber()] = flat
         }

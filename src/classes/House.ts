@@ -4,7 +4,7 @@ import { Floor } from "./Floor";
 import { IHouse } from "../interfaces/house.interface";
 export class House implements IHouse {
     floors = {}
-    evevator: Elevator
+    evevator: Elevator;
     number: number;
 
     constructor({ floorCount, number }) {
@@ -25,5 +25,9 @@ export class House implements IHouse {
             flats.push(...floor.getFlats())
         })
         return flats
+    }
+
+    action(): void {
+        this.evevator.action()
     }
 }

@@ -6,7 +6,7 @@ export interface IHouse {
         [key: number]: IFloor
     };
     evevator: IEvevator
-    // getFlatCount(): number
+    action(): void
     getFlats(): IFlat[]
 }
 
@@ -21,16 +21,20 @@ export interface IFloor {
 export interface IFlat {
     readonly number: number
     owner: IPerson | null
+    floor: IFloor
     getNumber(): number
     setOwner(person: IPerson): void
+    getFloor(): IFloor
 }
 
 export interface IEvevator {
     door: IDoor
     capasity: number
     location: IFloor
+    targets: IFloor[]
     action(): void
     move(location: IFloor): void
+    setTarget(target: IFloor): void
 }
 
 

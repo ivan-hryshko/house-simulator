@@ -42,6 +42,7 @@ export class Game implements IGame {
 
     nextTick(): void {
         // moveElevator
+        this.house.action()
         // movePeerson
     }
 }
