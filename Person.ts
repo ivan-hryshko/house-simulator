@@ -1,15 +1,15 @@
-import { IPerson } from "./interfaces/peson.interface"
+import { Flat } from "./Flat"
+import { IPerson, PersonLocation, PesronTarget } from "./interfaces/peson.interface"
 
 export class Person implements IPerson {
     id: number
-    target: PesronTarger
+    target: PesronTarget
+    flat: Flat | null
+    location: PersonLocation
 
-    constructor({ id }) {
+    constructor({ id, location }: { id :number, location: PersonLocation }) {
         this.id = id
+        this.target = PesronTarget.home
+        this.location = location
     }
-}
-
-export enum PesronTarger {
-    home = 'home',
-    job = 'job'
 }

@@ -2,29 +2,32 @@ import { Floor } from "../Floor"
 import { IPerson } from "./peson.interface";
 
 export interface IHouse {
+    readonly number: number
     floors: {
         [key: number]: IFloor
     };
     evevator: IEvevator
-    setOwners(persons: IPerson[]): void
-    getFlatCount(): number
+    // getFlatCount(): number
+    getFlats(): IFlat[]
 }
 
 export interface IFloor {
-    number: number
+    readonly number: number
     flats: {
         [key: number]: IFlat
-    }; 
+    };
+    getFlats(): IFlat[] 
 }
 
 export interface IFlat {
-    number: number
+    readonly number: number
     owner: IPerson | null
+    getNumber(): number
 }
 
 export interface IEvevator {
     door: IDoor
-    passangerCount: number
+    capasity: number
 }
 
 

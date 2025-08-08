@@ -11,7 +11,7 @@ export class Game implements IGame {
     
     #init() {
         console.log('init start');
-        this.house = new House({floorCount: 10})
+        this.house = new House({ floorCount: 10, number: 0 })
 
         console.log('init finish');
 
