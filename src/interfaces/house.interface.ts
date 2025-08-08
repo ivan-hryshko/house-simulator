@@ -1,4 +1,3 @@
-import { Floor } from "../Floor"
 import { IPerson } from "./peson.interface";
 
 export interface IHouse {
@@ -29,9 +28,9 @@ export interface IFlat {
 export interface IEvevator {
     door: IDoor
     capasity: number
-    location: Floor
+    location: IFloor
     action(): void
-    move(locatio: Floor): void
+    move(location: IFloor): void
 }
 
 

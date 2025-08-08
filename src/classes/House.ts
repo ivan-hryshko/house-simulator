@@ -1,7 +1,7 @@
 import { Elevator } from "./Elevator";
 import { Flat } from "./Flat";
 import { Floor } from "./Floor";
-import { IHouse } from "./interfaces/house.interface";
+import { IHouse } from "../interfaces/house.interface";
 export class House implements IHouse {
     floors = {}
     evevator: Elevator

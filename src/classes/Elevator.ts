@@ -1,6 +1,6 @@
 import { Door } from "./Door";
 import { Floor } from "./Floor";
-import { IDoor, IEvevator } from "./interfaces/house.interface";
+import { IDoor, IEvevator } from "../interfaces/house.interface";
 
 export class Elevator implements IEvevator {
     door: Door;

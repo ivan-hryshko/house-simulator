@@ -1,5 +1,5 @@
-import { IFlat } from "./interfaces/house.interface"
-import { IPerson } from "./interfaces/peson.interface"
+import { IFlat } from "../interfaces/house.interface"
+import { IPerson } from "../interfaces/peson.interface"
 import { Person } from "./Person"
 
 export class Flat implements IFlat {

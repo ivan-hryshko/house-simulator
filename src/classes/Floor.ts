@@ -1,5 +1,5 @@
 import { Flat } from "./Flat"
-import { IFlat, IFloor } from "./interfaces/house.interface"
+import { IFlat, IFloor } from "../interfaces/house.interface"
 export class Floor implements IFloor {
     number: number
     flats = {}

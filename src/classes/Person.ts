@@ -1,5 +1,5 @@
 import { Flat } from "./Flat"
-import { IPerson, PersonLocation, PesronTarget } from "./interfaces/peson.interface"
+import { IPerson, PersonLocation, PesronTarget } from "../interfaces/peson.interface"
 
 export class Person implements IPerson {
     id: number

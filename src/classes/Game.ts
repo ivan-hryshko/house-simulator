@@ -1,6 +1,6 @@
 import { House } from "./House";
-import { IGame } from "./interfaces/game.inerface";
-import { PersonLocation } from "./interfaces/peson.interface";
+import { IGame } from "../interfaces/game.inerface";
+import { PersonLocation } from "../interfaces/peson.interface";
 import { Person } from "./Person";
 
 export class Game implements IGame {
