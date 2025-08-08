@@ -6,8 +6,9 @@ export class Floor {
     constructor(number, flatsCount) {
         this.number = number
 
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < flatsCount; i++) {
             const flat = new Flat(i)
+            console.log('flat.getNumber() :>> ', flat.getNumber());
             this.flats[flat.getNumber()] = flat
         }
     }
