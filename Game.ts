@@ -4,6 +4,7 @@ import { PersonLocation } from "./interfaces/peson.interface";
 import { Person } from "./Person";
 
 export class Game implements IGame {
+    isRun: boolean = false;
     house: House
     tick: 0;
     persons: Person[]
@@ -31,5 +32,16 @@ export class Game implements IGame {
             this.persons.push(person)
             flat.setOwner(person)
         })
+    }
+
+    start(): void {
+        while (this.isRun) {
+            this.nextTick()
+        }
+    }
+
+    nextTick(): void {
+        // moveElevator
+        // movePeerson
     }
 }

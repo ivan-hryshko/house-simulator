@@ -29,6 +29,9 @@ export interface IFlat {
 export interface IEvevator {
     door: IDoor
     capasity: number
+    location: Floor
+    action(): void
+    move(locatio: Floor): void
 }
 
 

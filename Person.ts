@@ -13,4 +13,12 @@ export class Person implements IPerson {
         this.location = location
         this.flat = flat
     }
+
+    action(): void {
+        
+    }
+
+    move(locatio: PersonLocation): void {
+        
+    }
 }

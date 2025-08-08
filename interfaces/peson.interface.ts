@@ -5,6 +5,8 @@ export interface IPerson {
     flat: IFlat | null
     target: PesronTarget
     location: PersonLocation
+    action(): void
+    move(locatio: PersonLocation): void
 }
 
 export enum PesronTarget {
