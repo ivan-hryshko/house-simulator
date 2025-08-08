@@ -1,4 +1,6 @@
-export class Flat {
+import { IFlat } from "./interfaces/house.interface"
+
+export class Flat implements IFlat {
     number: number
 
     constructor(number) {

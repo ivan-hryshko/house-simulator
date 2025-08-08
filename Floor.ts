@@ -1,5 +1,6 @@
 import { Flat } from "./Flat"
-export class Floor {
+import { IFloor } from "./interfaces/house.interface"
+export class Floor implements IFloor {
     number: number
     flats = {}
 
