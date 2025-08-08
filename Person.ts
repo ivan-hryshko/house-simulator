@@ -7,9 +7,10 @@ export class Person implements IPerson {
     flat: Flat | null
     location: PersonLocation
 
-    constructor({ id, location }: { id :number, location: PersonLocation }) {
+    constructor({ id, location, flat }: { id :number, location: PersonLocation, flat: Flat }) {
         this.id = id
         this.target = PesronTarget.home
         this.location = location
+        this.flat = flat
     }
 }

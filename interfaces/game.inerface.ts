@@ -7,7 +7,7 @@ export interface IGame {
     persons: {
         [key: number]: IPerson
     };
-    setOwners(pesons: IPerson[]): void
+    setOwners(): void
     start(): void
     nextTick(): void
 }

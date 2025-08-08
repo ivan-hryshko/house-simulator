@@ -23,6 +23,7 @@ export interface IFlat {
     readonly number: number
     owner: IPerson | null
     getNumber(): number
+    setOwner(person: IPerson): void
 }
 
 export interface IEvevator {
