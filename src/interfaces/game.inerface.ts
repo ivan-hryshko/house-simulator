@@ -9,6 +9,7 @@ export interface IGame {
         [key: number]: IPerson
     };
     display: IGameDisplay
+    speed: number
     setOwners(): void
     start(): void
     nextTick(): void

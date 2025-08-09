@@ -26,7 +26,9 @@ export class Person implements IPerson {
 
     action(): void {
         if (this.#isNearEvelevatorToHome()) {
-            // this.elevator.setTergetFirstFloor()
+            if (this.elevator.getLocation().getNumber() > 0) {
+                this.elevator.setTergetFirstFloor()
+            }
             if (this.elevator.getLocation().getNumber() === 0 && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
                 const isEnter = this.elevator.enter(this)
                 if (isEnter) {
@@ -35,7 +37,6 @@ export class Person implements IPerson {
                 }
             }
         } else if (this.#isNeearEvelevatorToOutside()) {
-            // this.setElevatorMyFloor()
             if (this.elevator.getLocation().getNumber() === this.getFloorNumber()
                 && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
                 const isEnter = this.elevator.enter(this)
@@ -43,6 +44,8 @@ export class Person implements IPerson {
                     this.move(PersonLocation.elevator)
                     this.elevator.setTergetFirstFloor()
                 }
+            } else {
+                this.setElevatorMyFloor()
             }
         } else if (this.#isEvelevatorToHome()) {
             const elevLocation = this.elevator.getLocation().getNumber()
@@ -83,21 +86,6 @@ export class Person implements IPerson {
     getPauseTick(): number {
         return this.pauseTicks
     }
-
-    #setRandomPause() {
-        const max = 10
-        const min = 5
-        this.pauseTicks = Math.floor(Math.random() * (max - min + 1)) + min
-    }
-
-    #decresePause() {
-        if (this.pauseTicks > 0) {
-            this.pauseTicks = this.pauseTicks - 1
-        } else {
-            throw Error('can\'t decrese pause')
-        }
-    }
-
     #moveToNext() {
         const nextLocation = this.getNextLcoation()
         this.move(nextLocation)
@@ -109,6 +97,21 @@ export class Person implements IPerson {
             this.#setRandomPause()
         }
     }
+
+    #setRandomPause() {
+        const max = 15
+        const min = 10
+        this.pauseTicks = Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    #decresePause() {
+        if (this.pauseTicks > 0) {
+            this.pauseTicks = this.pauseTicks - 1
+        } else {
+            throw Error('can\'t decrese pause')
+        }
+    }
+
 
     #isFinish() {
         return this.location === PersonLocation.home || this.location === PersonLocation.job

@@ -32,7 +32,11 @@ export class Elevator implements IElevator {
                     this.#moveUp()
                 }
             } else if (this.direction === ElevatorDirection.DOWN) {
-                this.#moveDown()
+                if (this.location.getNumber() > 0) {
+                    this.#moveDown()
+                } else if (this.targets.length) {
+                    this.#setDirection(ElevatorDirection.UP)
+                }
             } else if (this.direction === ElevatorDirection.NONE) {
                 this.#setDirection(ElevatorDirection.UP)
             }
@@ -123,9 +127,7 @@ export class Elevator implements IElevator {
         const currentFloorNumber = this.#getCurrentFloorNumber()
         const nextFloorNumber = currentFloorNumber - 1
         const nextFloor = this.floors[nextFloorNumber]
-        if (nextFloor) {
-            this.#move(nextFloor)
-        }
+        this.#move(nextFloor)
     }
     
     #move(location: Floor): void {

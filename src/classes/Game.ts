@@ -14,6 +14,7 @@ export class Game implements IGame {
         [key: number]: Person
     } = {};
     display: GameDisplay;
+    speed: number = 500;
 
     constructor() {
         this.init()
@@ -40,7 +41,7 @@ export class Game implements IGame {
         this.display.showTick()
 
         while (this.isRun) {
-            await sleep(1000)
+            await sleep(this.speed)
             this.nextTick()
             this.display.showTick()
         }
