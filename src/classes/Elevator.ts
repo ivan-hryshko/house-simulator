@@ -21,12 +21,10 @@ export class Elevator implements IElevator {
     }
 
     action(): void {
+        this.door.close()
         if (this.#isTargetsExist()) {
             const isReach = this.#checkTarget()
             if (isReach) { return }
-        }
-        this.door.close()
-        if (this.#isTargetsExist()) {
             if (this.direction === ElevatorDirection.UP) {
                 if (this.#isHigerThanMaxTarget()) {
                     this.#changeDirection()
@@ -39,6 +37,8 @@ export class Elevator implements IElevator {
                 this.#setDirection(ElevatorDirection.UP)
             }
         }
+        // if (this.#isTargetsExist()) {
+        // }
     }
 
     checkFreeSpace(): number {

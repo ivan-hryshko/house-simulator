@@ -29,8 +29,8 @@ export class Game implements IGame {
     }
 
     setOwners(): void {
-    //    this.#addPersonsForAllFloors()
-        this.#addPersonForLastFloor()
+       this.#addPersonsForAllFloors()
+        // this.#addPersonForLastFloor()
     }
 
     async start(): Promise<void> {
@@ -86,17 +86,19 @@ export class Game implements IGame {
         lastFlat.setOwner(person)
     }
     #addPersonsForAllFloors() {
-            const flats = this.house.getFlats() 
+        const flats = this.house.getFlats() 
         flats.forEach((flat, index) => {
-            const person = new Person({
-                id: index,
-                location: PersonLocation.job,
-                flat,
-                elevator: this.house.getElevator(),
-                game: this
-            })
-            this.persons[person.getId()] = person
-            flat.setOwner(person)
+            if (flat.floor.getNumber() !== 0) {
+                const person = new Person({
+                    id: index,
+                    location: PersonLocation.job,
+                    flat,
+                    elevator: this.house.getElevator(),
+                    game: this
+                })
+                this.persons[person.getId()] = person
+                flat.setOwner(person)
+            }
         })
     }
 }

@@ -25,7 +25,7 @@ export class Person implements IPerson {
 
     action(): void {
         if (this.#isNearEvelevatorToHome()) {
-            this.elevator.setTergetFirstFloor()
+            // this.elevator.setTergetFirstFloor()
             if (this.elevator.getLocation().getNumber() === 0 && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
                 const isEnter = this.elevator.enter(this)
                 if (isEnter) {
@@ -34,7 +34,7 @@ export class Person implements IPerson {
                 }
             }
         } else if (this.#isNeearEvelevatorToOutside()) {
-            this.setElevatorMyFloor()
+            // this.setElevatorMyFloor()
             if (this.elevator.getLocation().getNumber() === this.getFloorNumber()
                 && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
                 const isEnter = this.elevator.enter(this)
@@ -77,7 +77,12 @@ export class Person implements IPerson {
 
     #moveToNext() {
         const nextLocation = this.getNextLcoation()
-        this.move(nextLocation)  
+        this.move(nextLocation)
+        if (this.#isNearEvelevatorToHome()) {
+            this.elevator.setTergetFirstFloor()
+        } else if (this.#isNeearEvelevatorToOutside()) {
+            this.setElevatorMyFloor()
+        }
     }
 
     #isFinish() {
