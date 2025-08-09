@@ -137,7 +137,6 @@ export class Elevator implements IElevator {
 
     #checkTarget(): boolean {
         const isReach = this.#isReachTarget()
-        console.log('isReach :>> ', isReach);
         if (isReach) {
             this.door.open()
             this.#removeTarget()

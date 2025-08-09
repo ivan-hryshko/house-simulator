@@ -1,4 +1,5 @@
 import { Flat } from "../classes/Flat"
+import { IGame } from "./game.inerface"
 import { IElevator, IFlat } from "./house.interface"
 
 export interface IPerson {
@@ -7,11 +8,13 @@ export interface IPerson {
     target: PesronTarget
     location: PersonLocation
     elevator: IElevator
+    game: IGame
     action(): void
     move(location: PersonLocation): void
     reachTarget(): void
     getNextLcoation(): PersonLocation
     setTarget(target: PesronTarget): void
+    getTarget(): PesronTarget
     getId(): number
     getLocation(): PersonLocation
     getFlat(): IFlat | null

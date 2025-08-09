@@ -15,7 +15,7 @@ export class GameDisplay implements IGameDisplay {
         persons.forEach(person => {
             this.#displayPerson(person)
         });
-        this.showDivider()
+        this.#showTickDivider()
     }
 
     #displayPerson(person: Person) {
@@ -25,7 +25,8 @@ export class GameDisplay implements IGameDisplay {
         const personFlat = person.getFlat()
         const flatFoor = personFlat?.getFloor().getNumber()
         const flat = `flat: ${flatFoor}-${personFlat?.getNumber()}`
-        console.log(`${id}, ${location}, ${flat}\n`);
+        const target = `target: ${person.getTarget()}`
+        console.log(`${id},${flat}, ${location}, ${target}\n`);
 
     }
 
@@ -42,5 +43,9 @@ export class GameDisplay implements IGameDisplay {
 
     showDivider(): void {
         console.log('=======\n');
+    }
+
+    #showTickDivider() {
+        console.log(`${this.game.getTick()} =======\n`);
     }
 }

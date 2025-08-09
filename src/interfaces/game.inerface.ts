@@ -12,6 +12,7 @@ export interface IGame {
     setOwners(): void
     start(): void
     nextTick(): void
+    getTick(): number
     getPersons(): IPerson[]
     getElevator(): IElevator
 }

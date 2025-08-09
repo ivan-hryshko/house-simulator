@@ -1,7 +1,8 @@
 import { Flat } from "./Flat"
 import { IPerson, PersonLocation, PersonLocationOrder, PesronTarget } from "../interfaces/peson.interface"
 import { Elevator } from "./Elevator"
-import { ElevatorDoorState, IFlat } from "../interfaces/house.interface"
+import { ElevatorDoorState } from "../interfaces/house.interface"
+import { Game } from "./Game"
 
 export class Person implements IPerson {
     id: number
@@ -9,26 +10,39 @@ export class Person implements IPerson {
     flat: Flat | null
     location: PersonLocation
     elevator: Elevator
+    game: Game
 
-    constructor({ id, location, flat, elevator }
-        : { id :number, location: PersonLocation, flat: Flat, elevator: Elevator }
+    constructor({ id, location, flat, elevator, game }
+        : { id :number, location: PersonLocation, flat: Flat, elevator: Elevator, game: Game }
     ) {
         this.id = id
         this.target = PesronTarget.home
         this.location = location
         this.flat = flat
         this.elevator = elevator
+        this.game = game
     }
 
     action(): void {
         if (this.#isNearEvelevatorToHome()) {
-            const isEnter = this.elevator.enter(this)
-            if (isEnter) {
-                this.move(PersonLocation.elevator)
-                this.setElevatorMyFloor()
+            this.elevator.setTergetFirstFloor()
+            if (this.elevator.getLocation().getNumber() === 0 && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
+                const isEnter = this.elevator.enter(this)
+                if (isEnter) {
+                    this.move(PersonLocation.elevator)
+                    this.setElevatorMyFloor()
+                }
             }
         } else if (this.#isNeearEvelevatorToOutside()) {
-
+            this.setElevatorMyFloor()
+            if (this.elevator.getLocation().getNumber() === this.getFloorNumber()
+                && this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
+                const isEnter = this.elevator.enter(this)
+                if (isEnter) {
+                    this.move(PersonLocation.elevator)
+                    this.elevator.setTergetFirstFloor()
+                }
+            }
         } else if (this.#isEvelevatorToHome()) {
             const elevLocation = this.elevator.getLocation().getNumber()
             if (elevLocation === this.getFloorNumber()) {
@@ -41,21 +55,38 @@ export class Person implements IPerson {
             if (elevLocation === 0) {
                 this.move(PersonLocation.elevator_bottom)
             }
-        } else {
-            const nextLocation = this.getNextLcoation()
-            this.move(nextLocation)
-            if (this.#isNearEvelevatorToHome()) {
-                this.elevator.setTergetFirstFloor()
-            } else if (this.#isNeearEvelevatorToOutside()) {
-                this.setElevatorMyFloor()
-                // TODO: set first floor
-            }
+        } else if (this.#isFinish() && this.game.getTick() !== 1) {
+            this.#opositTarget()
+            this.#moveToNext()
+        }   
+        else {
+            this.#moveToNext()
+            // if (this.#isNearEvelevatorToHome()) {
+            // } else if (this.#isNeearEvelevatorToOutside()) {
+            // }
         }
     }
 
     setElevatorMyFloor() {
         if (this.flat) {
             this.elevator.setTarget(this.flat.getFloor())
+        }
+    }
+
+    #moveToNext() {
+        const nextLocation = this.getNextLcoation()
+        this.move(nextLocation)  
+    }
+
+    #isFinish() {
+        return this.location === PersonLocation.home || this.location === PersonLocation.job
+    }
+
+    #opositTarget() {
+        if (this.target === PesronTarget.home) {
+            this.setTarget(PesronTarget.job)
+        } else  if (this.target === PesronTarget.job) {
+            this.setTarget(PesronTarget.home)
         }
     }
 
@@ -106,7 +137,11 @@ export class Person implements IPerson {
     }
 
     setTarget(target: PesronTarget): void {
-        
+        this.target = target
+    }
+
+    getTarget(): PesronTarget {
+        return this.target
     }
 
     getId(): number {

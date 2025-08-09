@@ -9,7 +9,7 @@ import { IElevator } from "../interfaces/house.interface";
 export class Game implements IGame {
     isRun: boolean = false;
     house: House
-    tick: 0;
+    tick: number = 0;
     persons: {
         [key: number]: Person
     } = {};
@@ -47,10 +47,17 @@ export class Game implements IGame {
     }
 
     nextTick(): void {
-        // moveElevator
+        this.#increaseTick()
         this.house.action()
         this.getPersons().forEach(p => p.action())
-        // movePeerson
+    }
+
+    #increaseTick() {
+        this.tick = this.tick + 1
+    }
+
+    getTick(): number {
+        return this.tick
     }
 
     getPersons(): Person[] {
@@ -72,7 +79,8 @@ export class Game implements IGame {
             id: 0,
             location: PersonLocation.job,
             flat: lastFlat,
-            elevator: this.house.getElevator()
+            elevator: this.house.getElevator(),
+            game: this
         })
         this.persons[person.getId()] = person
         lastFlat.setOwner(person)
@@ -84,7 +92,8 @@ export class Game implements IGame {
                 id: index,
                 location: PersonLocation.job,
                 flat,
-                elevator: this.house.getElevator()
+                elevator: this.house.getElevator(),
+                game: this
             })
             this.persons[person.getId()] = person
             flat.setOwner(person)
