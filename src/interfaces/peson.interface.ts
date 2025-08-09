@@ -1,3 +1,4 @@
+import { Flat } from "../classes/Flat"
 import { IElevator, IFlat } from "./house.interface"
 
 export interface IPerson {
@@ -11,9 +12,9 @@ export interface IPerson {
     reachTarget(): void
     getNextLcoation(): PersonLocation
     setTarget(target: PesronTarget): void
-    getIsWantEnterElevator(): boolean
     getId(): number
     getLocation(): PersonLocation
+    getFlat(): IFlat | null
 }
 
 export enum PesronTarget {

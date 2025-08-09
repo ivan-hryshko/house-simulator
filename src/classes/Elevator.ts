@@ -1,7 +1,8 @@
 import { Door } from "./Door";
 import { Floor } from "./Floor";
-import { ElevatorDirection, IElevator, IFloor } from "../interfaces/house.interface";
+import { ElevatorDirection, ElevatorDoorState, IDoor, IElevator } from "../interfaces/house.interface";
 import { Person } from "./Person";
+import { IPerson } from "../interfaces/peson.interface";
 
 export class Elevator implements IElevator {
     door: Door;
@@ -10,38 +11,52 @@ export class Elevator implements IElevator {
     targets: Floor[] = [];
     direction: ElevatorDirection = ElevatorDirection.NONE; 
     floors: { [key: number]: Floor; };
-    passenger: Person[];
+    passenger: Person[] = [];
     
     constructor(floors, capasity = 2) {
         this.capasity = capasity 
         this.door = new Door()
         this.floors = floors
+        this.location = this.floors[0]
     }
 
     action(): void {
         if (this.#isTargetsExist()) {
-            // checkTarget and direction
-            // if target open door
-            // clear target
-            // isMax target higer 
+            const isReach = this.#checkTarget()
+            if (isReach) { return }
         }
-        // if door open 
-            //  close door
+        this.door.close()
         if (this.#isTargetsExist()) {
             if (this.direction === ElevatorDirection.UP) {
                 if (this.#isMaxTargetHiger()) {
-                    this.#moveUp()
-                    
-                } else {
                     this.#changeDirection()
+                } else {
+                    this.#moveUp()
                 }
+            } else if (this.direction === ElevatorDirection.DOWN) {
+
+            } else if (this.direction === ElevatorDirection.NONE) {
+                this.#setDirection(ElevatorDirection.UP)
             }
         }
     }
 
-    
+    checkFreeSpace(): number {
+        const passengerCount = this.passenger.length
+        const freeSpace = this.capasity - passengerCount
+        return freeSpace
+    }
+
     setTarget(target: Floor): void {
-        // TODO: if trget in list do notthing
+        const targetExist = this.getTargetsNumbers().includes(target.getNumber())
+        if (!targetExist) {
+            this.targets.push(target)
+        }
+    }
+
+    setTergetFirstFloor(): void {
+        const zeroFloor = this.floors[0]
+        this.setTarget(zeroFloor)
     }
 
     getLocation(): Floor {
@@ -50,6 +65,34 @@ export class Elevator implements IElevator {
 
     getDirection(): ElevatorDirection {
         return this.direction
+    }
+
+    getFloorsNumbers(): number[] {
+        return Object.keys(this.floors).map(num => Number(num))
+    }
+    getTargetsNumbers(): number[] {
+        return this.targets.map(target => Number(target.getNumber()))
+    }
+
+    enter(person: Person): boolean {
+        if (this.checkFreeSpace()) {
+            this.passenger.push(person)
+            return true
+        }
+        return false
+    }
+
+    exit(personExit: Person): boolean {
+        this.passenger.filter(p => p.getId() !== personExit.getId())
+        return true
+    }
+
+    getDoor(): Door {
+        return this.door
+    }
+
+    getDoorStatus(): ElevatorDoorState {
+        return this.door.getStatus()
     }
 
     #changeDirection() {
@@ -68,7 +111,9 @@ export class Elevator implements IElevator {
         const currentFloorNumber = this.#getCurrentFloorNumber()
         const nextFloorNumber = currentFloorNumber + 1
         const nextFloor = this.floors[nextFloorNumber]
-        this.#move(nextFloor)
+        if (nextFloor) {
+            this.#move(nextFloor)
+        }
     }
     
     #move(location: Floor): void {
@@ -80,7 +125,7 @@ export class Elevator implements IElevator {
 
     #isMaxTargetHiger(): boolean {
         const currentFloor = this.#getCurrentFloorNumber()
-        const floorsNumbers = this.#getFloorsNumbers()
+        const floorsNumbers = this.getFloorsNumbers()
 
         const isGreater = floorsNumbers.every(fNumber => currentFloor > fNumber);
         return isGreater
@@ -90,11 +135,25 @@ export class Elevator implements IElevator {
         return this.location.getNumber()
     }
 
-    #getFloorsNumbers(): number[] {
-        return Object.keys(this.floors).map(num => Number(num))
+    #checkTarget(): boolean {
+        const isReach = this.#isReachTarget()
+        console.log('isReach :>> ', isReach);
+        if (isReach) {
+            this.door.open()
+            this.#removeTarget()
+        }
+        if (!this.targets.length) {
+            this.#setDirection(ElevatorDirection.NONE)
+        }
+        return isReach
+    }
+    
+    #isReachTarget(): boolean {
+        const isReach = this.getTargetsNumbers().includes(this.location.getNumber())
+        return isReach
     }
 
-    #getTargetsNumbers() {
-
+    #removeTarget() {
+        this.targets = this.targets.filter(target => target !== this.location)
     }
 }

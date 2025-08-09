@@ -1,5 +1,6 @@
 import { IGameDisplay } from "../interfaces/game.inerface";
 import { Game } from "./Game";
+import { Person } from "./Person";
 
 export class GameDisplay implements IGameDisplay {
     game: Game;
@@ -9,15 +10,34 @@ export class GameDisplay implements IGameDisplay {
     }
 
     showTick(): void {
-        // elevator: location: '', direction, personsload
-        const elevator = this.game.getElevator()
-        console.log(`location: ${elevator.getLocation()}, direction: ${elevator.getDirection()}\n`);
+        this.#displayElevator()
         const persons = this.game.getPersons()
         persons.forEach(person => {
-            // id: personId, location
-            console.log(`id: ${person.getId()}, location: ${person.getLocation()}\n`);
+            this.#displayPerson(person)
         });
         this.showDivider()
+    }
+
+    #displayPerson(person: Person) {
+        // id: personId, location
+        const id = `id: ${person.getId()}`
+        const location = `location: ${person.getLocation()}`
+        const personFlat = person.getFlat()
+        const flatFoor = personFlat?.getFloor().getNumber()
+        const flat = `flat: ${flatFoor}-${personFlat?.getNumber()}`
+        console.log(`${id}, ${location}, ${flat}\n`);
+
+    }
+
+    #displayElevator() {
+        // elevator: location: '', direction, personsload
+        const elevator = this.game.getElevator()
+        const location = `location: ${elevator.getLocation().getNumber()}`
+        const direction = `direction: ${elevator.getDirection()}`
+        const targets = `targets: [${elevator.getTargetsNumbers()}]`
+        const door = elevator.getDoor()
+        const doorStatus = `door: [${door.getStatus()}]`
+        console.log(`elevator: ${location}, ${direction}, ${doorStatus}, ${targets}\n`);
     }
 
     showDivider(): void {

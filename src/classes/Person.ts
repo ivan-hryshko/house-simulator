@@ -1,6 +1,7 @@
 import { Flat } from "./Flat"
 import { IPerson, PersonLocation, PersonLocationOrder, PesronTarget } from "../interfaces/peson.interface"
 import { Elevator } from "./Elevator"
+import { ElevatorDoorState, IFlat } from "../interfaces/house.interface"
 
 export class Person implements IPerson {
     id: number
@@ -20,12 +21,32 @@ export class Person implements IPerson {
     }
 
     action(): void {
-        if (this.getIsWantEnterElevator()) {
+        if (this.#isNearEvelevatorToHome()) {
+            const isEnter = this.elevator.enter(this)
+            if (isEnter) {
+                this.move(PersonLocation.elevator)
+                this.setElevatorMyFloor()
+            }
+        } else if (this.#isNeearEvelevatorToOutside()) {
 
+        } else if (this.#isEvelevatorToHome()) {
+            const elevLocation = this.elevator.getLocation().getNumber()
+            if (elevLocation === this.getFloorNumber()) {
+                if (this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
+                    this.move(PersonLocation.elevator_up)
+                }
+            }
+        } else if (this.#isEvelevatorToOutside()) {
+            const elevLocation = this.elevator.getLocation().getNumber()
+            if (elevLocation === 0) {
+                this.move(PersonLocation.elevator_bottom)
+            }
         } else {
             const nextLocation = this.getNextLcoation()
             this.move(nextLocation)
-            if (this.getIsWantEnterElevator()) {
+            if (this.#isNearEvelevatorToHome()) {
+                this.elevator.setTergetFirstFloor()
+            } else if (this.#isNeearEvelevatorToOutside()) {
                 this.setElevatorMyFloor()
                 // TODO: set first floor
             }
@@ -38,9 +59,26 @@ export class Person implements IPerson {
         }
     }
 
-    getIsWantEnterElevator() {
-        const wantEnterElevator = this.location === PersonLocation.elevator_bottom && this.target === PesronTarget.home
-            || this.location === PersonLocation.elevator_up && this.target === PesronTarget.job
+    #isEvelevatorToHome(): boolean {
+        const isElevatorGoHome = this.location === PersonLocation.elevator && this.target === PesronTarget.home
+        return isElevatorGoHome
+    }
+    #isEvelevatorToOutside(): boolean {
+        const isElevatorGoHome = this.location === PersonLocation.elevator && this.target === PesronTarget.job
+        return isElevatorGoHome
+    }
+    #isNearEvelevatorToHome(): boolean {
+        const isElevatorGoHome = this.location === PersonLocation.elevator_bottom && this.target === PesronTarget.home
+        return isElevatorGoHome
+    }
+    #isNeearEvelevatorToOutside(): boolean {
+        const isElevatorGoOutside = this.location === PersonLocation.elevator_up && this.target === PesronTarget.job
+        return isElevatorGoOutside
+    }
+
+    #getIsWantEnterElevator() {
+        const wantEnterElevator = this.#isNearEvelevatorToHome()
+            || this.#isNeearEvelevatorToOutside()
         return wantEnterElevator
     }
 
@@ -77,5 +115,13 @@ export class Person implements IPerson {
 
     getLocation(): PersonLocation {
         return this.location
+    }
+
+    getFlat(): Flat | null {
+        return this.flat
+    }
+
+    getFloorNumber() {
+        return this.flat?.getFloor().getNumber()
     }
 }

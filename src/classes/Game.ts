@@ -1,6 +1,6 @@
 import { House } from "./House";
 import { IGame, IGameDisplay } from "../interfaces/game.inerface";
-import { IPerson, PersonLocation } from "../interfaces/peson.interface";
+import { PersonLocation } from "../interfaces/peson.interface";
 import { Person } from "./Person";
 import sleep from "../utils/sleep";
 import { GameDisplay } from "./GameDisplay";
@@ -11,7 +11,7 @@ export class Game implements IGame {
     house: House
     tick: 0;
     persons: {
-        [key: number]: IPerson
+        [key: number]: Person
     } = {};
     display: GameDisplay;
 
@@ -49,10 +49,11 @@ export class Game implements IGame {
     nextTick(): void {
         // moveElevator
         this.house.action()
+        this.getPersons().forEach(p => p.action())
         // movePeerson
     }
 
-    getPersons(): IPerson[] {
+    getPersons(): Person[] {
         return Object.values(this.persons)
     }
 

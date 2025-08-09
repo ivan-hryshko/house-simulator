@@ -16,6 +16,7 @@ export interface IFloor {
     flats: {
         [key: number]: IFlat
     };
+    getNumber(): number
     getFlats(): IFlat[] 
 }
 
@@ -41,7 +42,15 @@ export interface IElevator {
     action(): void
     setTarget(target: IFloor): void
     getLocation(): IFloor
+    getDoor(): IDoor
     getDirection(): ElevatorDirection
+    getFloorsNumbers(): number[]
+    getTargetsNumbers(): number[]
+    setTergetFirstFloor(): void
+    checkFreeSpace(): number
+    enter(person: IPerson): boolean
+    exit(person: IPerson): boolean
+    getDoorStatus(): ElevatorDoorState
 }
 
 export enum ElevatorDirection {
@@ -53,6 +62,9 @@ export enum ElevatorDirection {
 
 export interface IDoor {
     status: ElevatorDoorState
+    open(): void
+    close(): void
+    getStatus(): ElevatorDoorState
 }
 
 export enum ElevatorDoorState {
