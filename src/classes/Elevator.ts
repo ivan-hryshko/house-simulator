@@ -13,7 +13,7 @@ export class Elevator implements IElevator {
     floors: { [key: number]: Floor; };
     passengers: Person[] = [];
     
-    constructor(floors, capasity = 2) {
+    constructor(floors, capasity = 3) {
         this.capasity = capasity 
         this.door = new Door()
         this.floors = floors
