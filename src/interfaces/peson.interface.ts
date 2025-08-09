@@ -9,6 +9,7 @@ export interface IPerson {
     location: PersonLocation
     elevator: IElevator
     game: IGame
+    pauseTicks: number
     action(): void
     move(location: PersonLocation): void
     reachTarget(): void
@@ -18,6 +19,7 @@ export interface IPerson {
     getId(): number
     getLocation(): PersonLocation
     getFlat(): IFlat | null
+    getPauseTick(): number
 }
 
 export enum PesronTarget {

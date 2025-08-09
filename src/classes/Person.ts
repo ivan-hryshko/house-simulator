@@ -11,6 +11,7 @@ export class Person implements IPerson {
     location: PersonLocation
     elevator: Elevator
     game: Game
+    pauseTicks: number = 0
 
     constructor({ id, location, flat, elevator, game }
         : { id :number, location: PersonLocation, flat: Flat, elevator: Elevator, game: Game }
@@ -58,8 +59,12 @@ export class Person implements IPerson {
                 this.move(PersonLocation.elevator_bottom)
             }
         } else if (this.#isFinish() && this.game.getTick() !== 1) {
-            this.#opositTarget()
-            this.#moveToNext()
+            if (this.pauseTicks) {
+                this.#decresePause()
+            } else {
+                this.#opositTarget()
+                this.#moveToNext()
+            }
         }   
         else {
             this.#moveToNext()
@@ -75,6 +80,24 @@ export class Person implements IPerson {
         }
     }
 
+    getPauseTick(): number {
+        return this.pauseTicks
+    }
+
+    #setRandomPause() {
+        const max = 10
+        const min = 5
+        this.pauseTicks = Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    #decresePause() {
+        if (this.pauseTicks > 0) {
+            this.pauseTicks = this.pauseTicks - 1
+        } else {
+            throw Error('can\'t decrese pause')
+        }
+    }
+
     #moveToNext() {
         const nextLocation = this.getNextLcoation()
         this.move(nextLocation)
@@ -82,6 +105,8 @@ export class Person implements IPerson {
             this.elevator.setTergetFirstFloor()
         } else if (this.#isNeearEvelevatorToOutside()) {
             this.setElevatorMyFloor()
+        } else if (this.#isFinish()) {
+            this.#setRandomPause()
         }
     }
 

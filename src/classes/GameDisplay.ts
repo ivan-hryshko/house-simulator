@@ -26,7 +26,8 @@ export class GameDisplay implements IGameDisplay {
         const flatFoor = personFlat?.getFloor().getNumber()
         const flat = `flat: ${flatFoor}-${personFlat?.getNumber()}`
         const target = `target: ${person.getTarget()}`
-        console.log(`person: ${id},${flat}, ${location}, ${target}\n`);
+        const pause = `pause: [${person.getPauseTick()}]`
+        console.log(`person: ${id},${flat}, ${location}, ${target}, ${pause}\n`);
 
     }
 
