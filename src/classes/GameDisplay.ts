@@ -26,7 +26,7 @@ export class GameDisplay implements IGameDisplay {
         const flatFoor = personFlat?.getFloor().getNumber()
         const flat = `flat: ${flatFoor}-${personFlat?.getNumber()}`
         const target = `target: ${person.getTarget()}`
-        console.log(`${id},${flat}, ${location}, ${target}\n`);
+        console.log(`person: ${id},${flat}, ${location}, ${target}\n`);
 
     }
 
@@ -38,7 +38,8 @@ export class GameDisplay implements IGameDisplay {
         const targets = `targets: [${elevator.getTargetsNumbers()}]`
         const door = elevator.getDoor()
         const doorStatus = `door: [${door.getStatus()}]`
-        console.log(`elevator: ${location}, ${direction}, ${doorStatus}, ${targets}\n`);
+        const passengers = `passengers: [${elevator.getPassengersIds()}]`
+        console.log(`elevator: ${location}, ${direction}, ${doorStatus}, ${targets}, ${passengers}\n`);
     }
 
     showDivider(): void {

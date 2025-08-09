@@ -11,7 +11,7 @@ export class Elevator implements IElevator {
     targets: Floor[] = [];
     direction: ElevatorDirection = ElevatorDirection.NONE; 
     floors: { [key: number]: Floor; };
-    passenger: Person[] = [];
+    passengers: Person[] = [];
     
     constructor(floors, capasity = 2) {
         this.capasity = capasity 
@@ -28,13 +28,13 @@ export class Elevator implements IElevator {
         this.door.close()
         if (this.#isTargetsExist()) {
             if (this.direction === ElevatorDirection.UP) {
-                if (this.#isMaxTargetHiger()) {
+                if (this.#isHigerThanMaxTarget()) {
                     this.#changeDirection()
                 } else {
                     this.#moveUp()
                 }
             } else if (this.direction === ElevatorDirection.DOWN) {
-
+                this.#moveDown()
             } else if (this.direction === ElevatorDirection.NONE) {
                 this.#setDirection(ElevatorDirection.UP)
             }
@@ -42,8 +42,8 @@ export class Elevator implements IElevator {
     }
 
     checkFreeSpace(): number {
-        const passengerCount = this.passenger.length
-        const freeSpace = this.capasity - passengerCount
+        const passengersCount = this.passengers.length
+        const freeSpace = this.capasity - passengersCount
         return freeSpace
     }
 
@@ -76,14 +76,14 @@ export class Elevator implements IElevator {
 
     enter(person: Person): boolean {
         if (this.checkFreeSpace()) {
-            this.passenger.push(person)
+            this.passengers.push(person)
             return true
         }
         return false
     }
 
     exit(personExit: Person): boolean {
-        this.passenger.filter(p => p.getId() !== personExit.getId())
+        this.passengers = this.passengers.filter(p => p.getId() !== personExit.getId())
         return true
     }
 
@@ -94,6 +94,10 @@ export class Elevator implements IElevator {
     getDoorStatus(): ElevatorDoorState {
         return this.door.getStatus()
     }
+
+    getPassengersIds(): number[] {
+        return this.passengers.map(p => p.getId())
+    }   
 
     #changeDirection() {
         if (this.direction === ElevatorDirection.UP) {
@@ -115,6 +119,14 @@ export class Elevator implements IElevator {
             this.#move(nextFloor)
         }
     }
+    #moveDown() {
+        const currentFloorNumber = this.#getCurrentFloorNumber()
+        const nextFloorNumber = currentFloorNumber - 1
+        const nextFloor = this.floors[nextFloorNumber]
+        if (nextFloor) {
+            this.#move(nextFloor)
+        }
+    }
     
     #move(location: Floor): void {
         this.location = location
@@ -123,11 +135,11 @@ export class Elevator implements IElevator {
         return this.targets.length
     }
 
-    #isMaxTargetHiger(): boolean {
+    #isHigerThanMaxTarget(): boolean {
         const currentFloor = this.#getCurrentFloorNumber()
-        const floorsNumbers = this.getFloorsNumbers()
+        const targetNumbers = this.getTargetsNumbers()
 
-        const isGreater = floorsNumbers.every(fNumber => currentFloor > fNumber);
+        const isGreater = targetNumbers.every(fNumber => currentFloor > fNumber);
         return isGreater
     }
 

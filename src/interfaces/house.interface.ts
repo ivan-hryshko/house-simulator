@@ -34,7 +34,7 @@ export interface IElevator {
     capasity: number
     location: IFloor
     targets: IFloor[]
-    passenger: IPerson[]
+    passengers: IPerson[]
     direction: ElevatorDirection
     floors: {
         [key: number]: IFloor
@@ -51,6 +51,7 @@ export interface IElevator {
     enter(person: IPerson): boolean
     exit(person: IPerson): boolean
     getDoorStatus(): ElevatorDoorState
+    getPassengersIds(): number[]
 }
 
 export enum ElevatorDirection {

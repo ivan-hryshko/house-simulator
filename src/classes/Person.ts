@@ -47,12 +47,14 @@ export class Person implements IPerson {
             const elevLocation = this.elevator.getLocation().getNumber()
             if (elevLocation === this.getFloorNumber()) {
                 if (this.elevator.getDoorStatus() === ElevatorDoorState.Open) {
+                    this.elevator.exit(this)
                     this.move(PersonLocation.elevator_up)
                 }
             }
         } else if (this.#isEvelevatorToOutside()) {
             const elevLocation = this.elevator.getLocation().getNumber()
             if (elevLocation === 0) {
+                this.elevator.exit(this)
                 this.move(PersonLocation.elevator_bottom)
             }
         } else if (this.#isFinish() && this.game.getTick() !== 1) {
