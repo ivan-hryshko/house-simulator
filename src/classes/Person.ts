@@ -70,4 +70,12 @@ export class Person implements IPerson {
     setTarget(target: PesronTarget): void {
         
     }
+
+    getId(): number {
+        return this.id
+    }
+
+    getLocation(): PersonLocation {
+        return this.location
+    }
 }

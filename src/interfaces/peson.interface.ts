@@ -8,10 +8,12 @@ export interface IPerson {
     elevator: IElevator
     action(): void
     move(location: PersonLocation): void
-    getNextLcoation(): PersonLocation
     reachTarget(): void
+    getNextLcoation(): PersonLocation
     setTarget(target: PesronTarget): void
     getIsWantEnterElevator(): boolean
+    getId(): number
+    getLocation(): PersonLocation
 }
 
 export enum PesronTarget {

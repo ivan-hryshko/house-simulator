@@ -40,6 +40,8 @@ export interface IElevator {
     };
     action(): void
     setTarget(target: IFloor): void
+    getLocation(): IFloor
+    getDirection(): ElevatorDirection
 }
 
 export enum ElevatorDirection {

@@ -1,6 +1,6 @@
 import { Door } from "./Door";
 import { Floor } from "./Floor";
-import { ElevatorDirection, IElevator } from "../interfaces/house.interface";
+import { ElevatorDirection, IElevator, IFloor } from "../interfaces/house.interface";
 import { Person } from "./Person";
 
 export class Elevator implements IElevator {
@@ -42,6 +42,14 @@ export class Elevator implements IElevator {
     
     setTarget(target: Floor): void {
         // TODO: if trget in list do notthing
+    }
+
+    getLocation(): Floor {
+        return this.location
+    }
+
+    getDirection(): ElevatorDirection {
+        return this.direction
     }
 
     #changeDirection() {
