@@ -1,12 +1,11 @@
-import { IFlat, IFloor } from "../interfaces/house.interface"
-import { IPerson } from "../interfaces/peson.interface"
+import { IFlat } from "../interfaces/house.interface"
 import { Floor } from "./Floor"
 import { Person } from "./Person"
 
 export class Flat implements IFlat {
     number: number
     owner: Person | null
-    floor: IFloor
+    floor: Floor
 
     constructor(number: number, floor: Floor) {
         this.number = number
@@ -17,11 +16,11 @@ export class Flat implements IFlat {
         return this.number
     }
 
-    setOwner(person: IPerson): void {
+    setOwner(person: Person): void {
         this.owner = person
     }
 
-    getFloor(): IFloor {
+    getFloor(): Floor {
         return this.floor
     }
 }

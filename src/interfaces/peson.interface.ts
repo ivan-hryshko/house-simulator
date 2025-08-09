@@ -1,14 +1,17 @@
-import { IFlat } from "./house.interface"
+import { IElevator, IFlat } from "./house.interface"
 
 export interface IPerson {
     id: number
     flat: IFlat | null
     target: PesronTarget
     location: PersonLocation
+    elevator: IElevator
     action(): void
     move(location: PersonLocation): void
-    nextLcoation(): PersonLocation
+    getNextLcoation(): PersonLocation
     reachTarget(): void
+    setTarget(target: PesronTarget): void
+    getIsWantEnterElevator(): boolean
 }
 
 export enum PesronTarget {

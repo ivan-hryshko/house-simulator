@@ -1,5 +1,5 @@
 import { Flat } from "./Flat"
-import { IFlat, IFloor } from "../interfaces/house.interface"
+import { IFloor } from "../interfaces/house.interface"
 export class Floor implements IFloor {
     number: number
     flats = {}
@@ -18,7 +18,7 @@ export class Floor implements IFloor {
         return this.number
     }
 
-    getFlats(): IFlat[] {
+    getFlats(): Flat[] {
         return Object.values(this.flats)
     }
 }

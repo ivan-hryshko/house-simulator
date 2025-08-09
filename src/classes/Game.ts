@@ -16,7 +16,7 @@ export class Game implements IGame {
     init() {
         console.log('init start');
         this.house = new House({ floorCount: 10, number: 0 })
-
+        this.setOwners()
         console.log('init finish');
 
     }
@@ -28,6 +28,7 @@ export class Game implements IGame {
                 id: index,
                 location: PersonLocation.job,
                 flat,
+                elevator: this.house.getElevator()
             })
             this.persons.push(person)
             flat.setOwner(person)

@@ -5,9 +5,10 @@ export interface IHouse {
     floors: {
         [key: number]: IFloor
     };
-    elevator: Ielevator
+    elevator: IElevator
     action(): void
     getFlats(): IFlat[]
+    getElevator(): IElevator
 }
 
 export interface IFloor {
@@ -27,14 +28,24 @@ export interface IFlat {
     getFloor(): IFloor
 }
 
-export interface Ielevator {
+export interface IElevator {
     door: IDoor
     capasity: number
     location: IFloor
     targets: IFloor[]
+    passenger: IPerson[]
+    direction: ElevatorDirection
+    floors: {
+        [key: number]: IFloor
+    };
     action(): void
-    move(location: IFloor): void
     setTarget(target: IFloor): void
+}
+
+export enum ElevatorDirection {
+    UP = 'UP',
+    DOWN = 'DOWN',
+    NONE = 'NONE'
 }
 
 

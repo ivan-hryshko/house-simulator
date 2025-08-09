@@ -8,14 +8,14 @@ export class House implements IHouse {
     number: number;
 
     constructor({ floorCount, number }) {
-        this.elevator = new Elevator()
-        this.number
-
+        this.number = number
+        
         for (let i = 0; i < floorCount; i++) {
             const flatsCount = 1
             const floor = new Floor(i, flatsCount)
             this.floors[floor.getNumber()] = floor
         }
+        this.elevator = new Elevator(this.floors)
     }
 
     getFlats(): Flat[] {
@@ -29,5 +29,9 @@ export class House implements IHouse {
 
     action(): void {
         this.elevator.action()
+    }
+
+    getElevator(): Elevator {
+        return this.elevator
     }
 }
