@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "bun src/index.ts",
     "migrate:gen": "sequelize-cli migration:generate --name",
     "migrate": "npx sequelize-cli db:migrate",
     "migration:undo": "npx sequelize-cli db:migrate:undo"
-
   },
   "repository": {
     "type": "git",
