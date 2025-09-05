@@ -12,7 +12,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
     volumes:
-      - sq-study:/var/lib/mysql
+      - house-simulator-db:/var/lib/mysql
 
 volumes:
-  sq-study:
+  house-simulator-db:
