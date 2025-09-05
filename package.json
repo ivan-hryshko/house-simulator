@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/ivan-hryshko/house-simulator/issues"
   },
-  "homepage": "https://github.com/ivan-hryshko/house-simulator#readme"
+  "homepage": "https://github.com/ivan-hryshko/house-simulator#readme",
+  "dependencies": {
+    "mysql2": "^3.14.4",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3",
+    "sequelize-typescript": "^2.1.6"
+  },
+  "devDependencies": {
+    "@sequelize/core": "^7.0.0-alpha.46",
+    "dotenv": "^17.2.2"
+  }
 }

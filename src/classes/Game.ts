@@ -15,6 +15,7 @@ export class Game implements IGame {
     } = {};
     display: GameDisplay;
     speed: number = 500;
+// npx sequelize-cli model:generate --name Game --attributes isRun:boolean,email:string
 
     constructor() {
         this.init()
