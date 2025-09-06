@@ -1,4 +1,5 @@
-import { Table, Column, Model, Default, DataType, AllowNull, PrimaryKey, AutoIncrement } from 'sequelize-typescript'
+import { Table, Column, Model, Default, DataType, AllowNull, PrimaryKey, AutoIncrement, HasMany } from 'sequelize-typescript'
+import { House } from './House';
 
 @Table({
     tableName: 'games',
@@ -30,4 +31,7 @@ export class Game extends Model {
         allowNull: false,
     })
     speed!: number;
+
+    @HasMany(() => House)
+    houses!: House[]
 }

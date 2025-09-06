@@ -1,4 +1,4 @@
-import { House } from "../classes/House";
+import { House } from "../../models/House";
 import { IGame, IGameDisplay } from "../interfaces/game.inerface";
 import { PersonLocation } from "../interfaces/peson.interface";
 import { Person } from "../classes/Person";
@@ -19,8 +19,14 @@ export class GameService implements IGameService {
     async init(): Promise<void> {
         console.log('init start');
         this.game = await Game.create({});
-        this.housService = new HouseService({ floorCount: 10 })
+        this.housService = new HouseService({ floorCount: 10, gameId: this.game.id })
         await this.housService.init()
+        const gameWithHouses = await Game.findByPk(this.game.id, {
+            include: [House],
+        });
+        console.log(JSON.stringify(gameWithHouses, null, 2));
+
+
         // this.setOwners()
         // this.display = new GameDisplay(this)
         console.log('init finish');

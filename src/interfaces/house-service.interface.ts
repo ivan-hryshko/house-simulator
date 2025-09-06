@@ -9,6 +9,7 @@ export interface IHouseService {
 
 export interface IHouseServiceConstructor {
     floorCount: number
+    gameId: number
 }
 
 // export interface IFloor {

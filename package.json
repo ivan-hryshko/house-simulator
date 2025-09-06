@@ -8,7 +8,7 @@
     "start": "bun src/index.ts",
     "migrate:gen": "sequelize-cli migration:generate --name",
     "migrate": "npx sequelize-cli db:migrate",
-    "migration:undo": "npx sequelize-cli db:migrate:undo"
+    "migrate:undo": "npx sequelize-cli db:migrate:undo"
   },
   "repository": {
     "type": "git",
