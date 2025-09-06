@@ -4,11 +4,12 @@ import { IHouse } from "../interfaces/house.interface";
 import { IHouseService, IHouseServiceConstructor } from "../interfaces/house-service.interface";
 import { House } from "../../models/House";
 import { Floor } from "../../models/Floor";
+import { FloorService } from "./FloorService";
 
 export class HouseService implements IHouseService {
     gameId: number
     floorCount: number
-    floors = {}
+    floorServices = {}
     elevator: Elevator;
     house: House
 
@@ -21,19 +22,25 @@ export class HouseService implements IHouseService {
         this.house = await House.create({ gameId: this.gameId })
         for (let i = 0; i < this.floorCount; i++) {
             const flatsCount = 1
-            // const floor = new Floor(i, flatsCount)
-            const floor = await Floor.create({ level: i, houseId: this.house.id })
+            const level = i
+            const floorService = new FloorService({
+                level,
+                houseId: this.house.id,
+                flatsCount,
+            })
+            await floorService.init()
+            // const floor = await Floor.create({ level: i, houseId: this.house.id })
 
-            this.floors[i] = floor
+            this.floorServices[level] = floorService
         }
-        this.elevator = new Elevator(this.floors)
+        this.elevator = new Elevator(this.floorServices)
         
     }
 
     // getFlats(): Flat[] {
     //     const flats: Flat[] = []
-    //     const floors: Floor[] = Object.values(this.floors)
-    //     floors.forEach((floor: Floor) => {
+    //     const floorServices: Floor[] = Object.values(this.floorServices)
+    //     floorServices.forEach((floor: Floor) => {
     //         flats.push(...floor.getFlats())
     //     })
     //     return flats
