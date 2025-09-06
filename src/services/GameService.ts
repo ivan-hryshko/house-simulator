@@ -7,17 +7,20 @@ import { GameDisplay } from "../classes/GameDisplay";
 import { IElevator } from "../interfaces/house.interface";
 import { IGameService } from "../interfaces/game-service.inerface";
 import { Game } from "../../models/Game";
+import { HouseService } from "./HouseService";
 
 export class GameService implements IGameService {
     private game: Game
+    private housService: HouseService
 
     constructor() {
     }
     
-    async init() {
+    async init(): Promise<void> {
         console.log('init start');
         this.game = await Game.create({});
-        // this.house = new House({ floorCount: 10, number: 0 })
+        this.housService = new HouseService({ floorCount: 10 })
+        await this.housService.init()
         // this.setOwners()
         // this.display = new GameDisplay(this)
         console.log('init finish');

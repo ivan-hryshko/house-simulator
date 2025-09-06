@@ -1,4 +1,4 @@
 export interface IGameService {
-    start(): void
-    init(): void
+    start(): Promise<void>
+    init(): Promise<void>
 }

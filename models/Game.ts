@@ -1,10 +1,15 @@
-import { Table, Column, Model, Default, DataType, AllowNull } from 'sequelize-typescript'
+import { Table, Column, Model, Default, DataType, AllowNull, PrimaryKey, AutoIncrement } from 'sequelize-typescript'
 
 @Table({
     tableName: 'games',
     timestamps: true
 })
 export class Game extends Model {
+    // @PrimaryKey
+    // @AutoIncrement
+    // @Column(DataType.INTEGER)
+    // id!: number;
+
     @Default(false)
     @Column({
         type: DataType.BOOLEAN,
