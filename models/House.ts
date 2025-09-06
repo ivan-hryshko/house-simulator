@@ -5,8 +5,10 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from "sequelize-typescript";
 import { Game } from "./Game";
+import { Floor } from "./Floor";
 
 @Table({ tableName: "houses" })
 export class House extends Model {
@@ -16,4 +18,7 @@ export class House extends Model {
 
   @BelongsTo(() => Game)
   game!: Game;
+
+    @HasMany(() => Floor)
+    floors!: Floor[]
 }

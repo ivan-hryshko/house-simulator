@@ -1,9 +1,9 @@
 import { Elevator } from "../classes/Elevator";
 import { Flat } from "../classes/Flat";
-import { Floor } from "../classes/Floor";
 import { IHouse } from "../interfaces/house.interface";
 import { IHouseService, IHouseServiceConstructor } from "../interfaces/house-service.interface";
 import { House } from "../../models/House";
+import { Floor } from "../../models/Floor";
 
 export class HouseService implements IHouseService {
     gameId: number
@@ -21,8 +21,10 @@ export class HouseService implements IHouseService {
         this.house = await House.create({ gameId: this.gameId })
         for (let i = 0; i < this.floorCount; i++) {
             const flatsCount = 1
-            const floor = new Floor(i, flatsCount)
-            this.floors[floor.getNumber()] = floor
+            // const floor = new Floor(i, flatsCount)
+            const floor = await Floor.create({ level: i, houseId: this.house.id })
+
+            this.floors[i] = floor
         }
         this.elevator = new Elevator(this.floors)
         

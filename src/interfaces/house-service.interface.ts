@@ -1,3 +1,4 @@
+import { IFlat } from "./house.interface";
 import { IPerson } from "./peson.interface";
 
 export interface IHouseService {
@@ -12,14 +13,16 @@ export interface IHouseServiceConstructor {
     gameId: number
 }
 
-// export interface IFloor {
-//     readonly number: number
-//     flats: {
-//         [key: number]: IFlat
-//     };
-//     getNumber(): number
-//     getFlats(): IFlat[] 
-// }
+export interface IFloorService {
+    init(): Promise<void>
+    getNumber(): number
+    getFlats(): IFlat[] 
+}
+export interface IFloorServiceConstructor {
+    flatsCount: number,
+    houseId: number,
+    level: number
+}
 
 // export interface IFlat {
 //     readonly number: number

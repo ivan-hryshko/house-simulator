@@ -8,6 +8,7 @@ import { IElevator } from "../interfaces/house.interface";
 import { IGameService } from "../interfaces/game-service.inerface";
 import { Game } from "../../models/Game";
 import { HouseService } from "./HouseService";
+import { Floor } from "../../models/Floor";
 
 export class GameService implements IGameService {
     private game: Game
@@ -22,7 +23,10 @@ export class GameService implements IGameService {
         this.housService = new HouseService({ floorCount: 10, gameId: this.game.id })
         await this.housService.init()
         const gameWithHouses = await Game.findByPk(this.game.id, {
-            include: [House],
+            include: [{
+                model: House,
+                include: [Floor]
+            }],
         });
         console.log(JSON.stringify(gameWithHouses, null, 2));
 
