@@ -1,3 +1,4 @@
+import { FlatService } from "../services/FlatService";
 import { IFlat } from "./house.interface";
 import { IPerson } from "./peson.interface";
 
@@ -15,8 +16,9 @@ export interface IHouseServiceConstructor {
 
 export interface IFloorService {
     init(): Promise<void>
-    getNumber(): number
-    getFlats(): IFlat[] 
+    getId(): number
+    getLevel(): number
+    getFlats(): FlatService[] 
 }
 export interface IFloorServiceConstructor {
     flatsCount: number,
@@ -24,14 +26,15 @@ export interface IFloorServiceConstructor {
     level: number
 }
 
-// export interface IFlat {
-//     readonly number: number
-//     owner: IPerson | null
-//     floor: IFloor
-//     getNumber(): number
-//     setOwner(person: IPerson): void
-//     getFloor(): IFloor
-// }
+export interface IFlatService {
+    readonly number: number
+    owner: IPerson | null
+    floorService: IFloorService
+    getId(): number
+    getNumber(): number
+    setOwner(person: IPerson): void
+    getFloor(): IFloorService
+}
 
 // export interface IElevator {
 //     door: IDoor

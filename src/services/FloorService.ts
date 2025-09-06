@@ -1,14 +1,14 @@
 import { Floor } from "../../models/Floor"
 import { Flat } from "../classes/Flat"
 import { IFloorService, IFloorServiceConstructor } from "../interfaces/house-service.interface"
-import { IFloor } from "../interfaces/house.interface"
+import { FlatService } from "./FlatService"
 
 export class FloorService implements IFloorService {
     floor: Floor
     flatsCount: number
     level: number
     houseId: number
-    flats = {}
+    flatsService = {}
 
     constructor({ flatsCount, level, houseId  } : IFloorServiceConstructor) {
         this.flatsCount = flatsCount
@@ -18,19 +18,23 @@ export class FloorService implements IFloorService {
     }
     async init() {
         this.floor = await Floor.create({ level: this.level, houseId: this.houseId })
-        // for (let i = 0; i < flatsCount; i++) {
-        //     const flat = new Flat(i, this)
-        //     this.flats[flat.getNumber()] = flat
-        //     console.log(`created flat: ${this.getNumber()}-${flat.getNumber()}`);
-        // }
+        for (let i = 0; i < this.flatsCount; i++) {
+            const flatService = new FlatService(i, this)
+            await flatService.init()
+            this.flatsService[i] = flatService
+            console.log(`created flat: ${this.getLevel()}-${flatService.getNumber()}`);
+        }
         
     }
 
-    getNumber() {
+    getId() {
+        return this.floor.id
+    }
+    getLevel() {
         return this.floor.level
     }
 
-    getFlats(): Flat[] {
-        return Object.values(this.flats)
+    getFlats(): FlatService[] {
+        return Object.values(this.flatsService)
     }
 }

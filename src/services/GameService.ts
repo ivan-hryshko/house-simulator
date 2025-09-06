@@ -9,6 +9,7 @@ import { IGameService } from "../interfaces/game-service.inerface";
 import { Game } from "../../models/Game";
 import { HouseService } from "./HouseService";
 import { Floor } from "../../models/Floor";
+import { Flat } from "../../models/Flat";
 
 export class GameService implements IGameService {
     private game: Game
@@ -25,7 +26,10 @@ export class GameService implements IGameService {
         const gameWithHouses = await Game.findByPk(this.game.id, {
             include: [{
                 model: House,
-                include: [Floor]
+                include: [{
+                    model: Floor,
+                    include: [Flat]
+                }]
             }],
         });
         console.log(JSON.stringify(gameWithHouses, null, 2));

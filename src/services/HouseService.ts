@@ -29,7 +29,6 @@ export class HouseService implements IHouseService {
                 flatsCount,
             })
             await floorService.init()
-            // const floor = await Floor.create({ level: i, houseId: this.house.id })
 
             this.floorServices[level] = floorService
         }

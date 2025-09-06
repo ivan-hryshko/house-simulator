@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import { Game } from './Game';
 import { House } from './House';
 import { Floor } from './Floor';
+import { Flat } from './Flat';
 
 export const sequelize = new Sequelize({
     dialect: 'mysql',
@@ -13,5 +14,6 @@ export const sequelize = new Sequelize({
         Game,
         House,
         Floor,
+        Flat,
     ],
 });
